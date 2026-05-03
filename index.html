@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Google AI Studio App</title>
+    <script>
+      /**
+       * POLYFILL FIX:
+       * Prevents "Uncaught TypeError: Cannot set property fetch of #<Window> which has only a getter"
+       * This error occurs when polyfills (like formdata-polyfill) try to overwrite
+       * window.fetch in environments where it is a read-only getter (common in sandboxed iframes).
+       */
+      (function() {
+        if (typeof window !== 'undefined') {
+          // 1. Force identify FormData as modern to prevent polyfill execution
+          if (window.FormData && !window.FormData.prototype.keys) {
+            const noop = function* () { yield* []; };
+            // Define all modern FormData methods
+            const methods = ['keys', 'values', 'entries', 'getAll', 'has', 'set'];
+            methods.forEach(method => {
+              if (!window.FormData.prototype[method]) {
+                try {
+                  Object.defineProperty(window.FormData.prototype, method, {
+                    value: method === 'getAll' ? () => [] : (method === 'has' ? () => false : noop),
+                    writable: true,
+                    configurable: true
+                  });
+                } catch(e) {}
+              }
+            });
+            
+            // Define the iterator
+            if (!window.FormData.prototype[Symbol.iterator]) {
+              try {
+                Object.defineProperty(window.FormData.prototype, Symbol.iterator, {
+                  value: window.FormData.prototype.entries || noop,
+                  writable: true,
+                  configurable: true
+                });
+              } catch(e) {}
+            }
+          }
+          
+          // 2. Wrap Object.defineProperty to ignore attempts to overwrite 'fetch' on window
+          const originalDefineProperty = Object.defineProperty;
+          Object.defineProperty = function(obj, prop, descriptor) {
+            if (obj === window && prop === 'fetch') {
+              console.warn('Blocked attempt to redefine window.fetch');
+              return obj;
+            }
+            return originalDefineProperty.apply(this, arguments);
+          };
+
+          // 3. Prevent direct assignment to window.fetch if possible
+          try {
+            const originalFetch = window.fetch;
+            Object.defineProperty(window, 'fetch', {
+              get: function() { return originalFetch; },
+              set: function() { console.warn('Ignored assignment to window.fetch'); },
+              configurable: true // Allow us to set it up, but the browser may still block
+            });
+          } catch (e) {
+            // If the browser already has a non-configurable getter, this will fail
+            // but we'll still have the defineProperty protection above.
+          }
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

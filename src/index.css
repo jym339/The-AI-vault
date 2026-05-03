@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  
+  --color-brand-gold: #D4AF37;
+  --color-brand-gold-light: #F9E2AF;
+  --color-midnight: #0A0A0B;
+  --color-midnight-light: #161618;
+}
+
+@layer base {
+  body {
+    @apply bg-midnight text-gray-300 font-sans antialiased;
+  }
+  
+  h1, h2, h3, h4 {
+    @apply font-display font-bold text-white tracking-tight;
+  }
+}
+
+.glow-gold {
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
+}
+
+.text-gradient-gold {
+  background: linear-gradient(to bottom right, #F9E2AF, #D4AF37, #996515);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
