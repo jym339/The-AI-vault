@@ -61,13 +61,16 @@ export default function App() {
               <span className="font-display font-bold text-brand-gold tracking-widest text-lg leading-none">VAULT</span>
             </div>
           </div>
-          <motion.button 
+          <motion.a 
+            href="https://jamesm93.gumroad.com/l/aivault"
+            target="_blank"
+            rel="noopener noreferrer"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="hidden sm:block bg-brand-gold hover:bg-brand-gold-light text-midnight px-6 py-2.5 rounded-full text-sm font-bold transition-all shadow-lg shadow-brand-gold/10"
           >
             Claim Access — $27
-          </motion.button>
+          </motion.a>
         </div>
       </nav>
 
@@ -111,14 +114,17 @@ export default function App() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-6"
           >
-            <motion.button 
+            <motion.a 
+              href="https://jamesm93.gumroad.com/l/aivault"
+              target="_blank"
+              rel="noopener noreferrer"
               whileHover={{ scale: 1.02, boxShadow: "0 0 40px rgba(212, 175, 55, 0.4)" }}
               whileTap={{ scale: 0.98 }}
               className="w-full sm:w-auto bg-brand-gold text-midnight px-10 py-5 rounded-2xl text-xl font-black flex items-center justify-center gap-3 transition-all group"
             >
               Get The Vault For $27
               <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
-            </motion.button>
+            </motion.a>
             <div className="flex flex-col items-start text-left">
               <span className="text-sm text-white/80 font-bold">One-time Investment</span>
               <span className="text-xs text-gray-500">Includes 100+ Pro Prompts + Bonuses</span>
@@ -431,14 +437,17 @@ export default function App() {
 
               </div>
 
-              <motion.button 
+              <motion.a 
+                href="https://jamesm93.gumroad.com/l/aivault"
+                target="_blank"
+                rel="noopener noreferrer"
                 whileHover={{ scale: 1.05, boxShadow: "0 20px 60px rgba(212, 175, 55, 0.4)" }}
                 whileTap={{ scale: 0.95 }}
                 className="w-full bg-brand-gold text-midnight py-7 rounded-3xl text-2xl font-black shadow-2xl shadow-brand-gold/20 flex items-center justify-center gap-3 relative z-10"
               >
                 UNLOCK THE VAULT NOW
                 <ChevronRight className="w-8 h-8" />
-              </motion.button>
+              </motion.a>
               
               <div className="mt-8 flex items-center justify-center gap-4 text-xs font-bold text-gray-600 uppercase tracking-widest">
                  <div className="flex items-center gap-1.5"><Lock className="w-3 h-3" /> Secure Checkout</div>
